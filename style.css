@@ -13,15 +13,30 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, #1A1A1A, #222222);
+  background: transparent;
   padding: 1.25rem;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  transition: 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+header.scrolled,
+header.non-transparent {
+  background: linear-gradient(135deg, #1A1A1A, #222222);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
 }
+
+header.hidden-header {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
 
 nav {
   display: flex;
@@ -119,7 +134,7 @@ section {
   justify-content: center;
   position: relative;
   background: linear-gradient(135deg, #0A0A0A, #1A1A1A);
-  padding: 5rem 2rem;
+  padding: 5rem 1rem;
   overflow: hidden;
   min-height: 100vh;
   margin-bottom: 3rem;
@@ -129,22 +144,22 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3.5rem;
+  gap: 2rem;
   width: 100%;
   max-width: 1200px;
   flex-wrap: wrap;
-  text-align: left;
+  text-align: center;
 }
 
 .home-text {
-  flex: 3;
+  flex: 1;
   min-width: 280px;
   padding: 1rem;
   max-width: 100%;
 }
 
 .home-text h1 {
-  font-size: clamp(2.25rem, 6vw, 3rem);
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 900;
   margin-bottom: 0.5rem;
   color: #FFFFFF;
@@ -152,12 +167,12 @@ section {
   text-transform: uppercase;
   line-height: 1.3;
   word-break: break-word;
-  animation: fadeInUp 1s ease 0.5s forwards;
   opacity: 0;
+  animation: fadeInText 2s ease 0.5s forwards;
 }
 
 .home-text h3 {
-  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+  font-size: clamp(1.3rem, 4.5vw, 1.8rem);
   font-weight: 600;
   margin-bottom: 1rem;
   color: #B0C4DE;
@@ -166,8 +181,9 @@ section {
 }
 
 .home-text p {
-  font-size: clamp(1.1rem, 3.8vw, 1.3rem);
+  font-size: clamp(1rem, 3.8vw, 1.3rem);
   max-width: 90%;
+  margin: 0 auto;
   color: #D3D3D3;
   line-height: 1.8;
   opacity: 0;
@@ -192,16 +208,15 @@ section {
 }
 
 .cta-btn:hover {
-  background: linear-gradient(90deg, #1E90FF, #00B7EB);
+  background: linear-gradient(90deg, #ab7f28da, #d4a648);
   color: #FFFFFF;
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(30, 144, 255, 0.7);
-  animation-play-state: paused;
+  box-shadow: 0 8px 25px rgba(230, 218, 110, 0.7);
 }
 
 #home .profile-pic {
-  width: clamp(200px, 45vw, 350px);
-  height: clamp(200px, 45vw, 350px);
+  width: clamp(180px, 45vw, 300px);
+  height: clamp(180px, 45vw, 300px);
   border-radius: 100%;
   object-fit: cover;
   border: 5px solid #FFD700;
@@ -488,10 +503,10 @@ section {
 }
 
 .cert-btn:hover {
-  background: linear-gradient(135deg, #1E90FF, #00B7EB);
+  background: linear-gradient(90deg, #ab7f28da, #d4a648);
   color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(30, 144, 255, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(230, 218, 110, 0.7);
 }
 
 footer {
@@ -534,29 +549,29 @@ footer {
   transform: translateY(0);
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
   .home-content {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
     align-items: center;
+    gap: 1.5rem;
   }
 
   .home-text h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
 
   .home-text h3 {
-    font-size: 1.6rem;
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
   }
 
   .home-text p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
   }
 
   #home .profile-pic {
-    width: 300px;
-    height: auto;
+    width: clamp(160px, 40vw, 280px);
+    height: clamp(160px, 40vw, 280px);
   }
 
   .about-content .about-pic {
@@ -570,28 +585,13 @@ footer {
   }
 
   #home {
-    padding: 4rem 1.5rem;
+    padding: 4rem 1rem;
   }
 
   .home-text {
-    min-width: 250px;
-  }
-
-  .home-text h1 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-  }
-
-  .home-text h3 {
-    font-size: clamp(1.3rem, 4vw, 1.6rem);
-  }
-
-  .home-text p {
-    font-size: clamp(1rem, 3.5vw, 1.2rem);
-  }
-
-  #home .profile-pic {
-    width: clamp(180px, 40vw, 300px);
-    height: clamp(180px, 40vw, 300px);
+    min-width: 0;
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -622,26 +622,26 @@ footer {
   .home-content {
     flex-direction: column;
     text-align: center;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .home-text {
     text-align: center;
     min-width: 0;
-    max-width: 600px;
+    max-width: 90%;
   }
 
   .home-text h1 {
-    font-size: 2.25rem;
+    font-size: clamp(1.8rem, 5vw, 2.25rem);
   }
 
   .home-text h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 4vw, 1.4rem);
   }
 
   #home .profile-pic {
-    width: 240px;
-    height: 240px;
+    width: clamp(140px, 40vw, 240px);
+    height: clamp(140px, 40vw, 240px);
     margin: 0 auto;
   }
 
@@ -701,7 +701,7 @@ footer {
   }
 
   #home {
-    padding: 3.5rem 1rem;
+    padding: 3.5rem 0.75rem;
   }
 
   .home-content {
@@ -729,8 +729,8 @@ footer {
   }
 
   #home .profile-pic {
-    width: clamp(160px, 50vw, 240px);
-    height: clamp(160px, 50vw, 240px);
+    width: clamp(140px, 40vw, 240px);
+    height: clamp(140px, 40vw, 240px);
   }
 }
 
@@ -744,20 +744,20 @@ footer {
   }
 
   .home-text h1 {
-    font-size: 1.8rem;
+    font-size: clamp(1.6rem, 5vw, 1.8rem);
   }
 
   .home-text h3 {
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 4vw, 1.2rem);
   }
 
   .home-text p {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
   }
 
   .cta-btn {
     padding: 0.6rem 1.5rem;
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 3vw, 0.95rem);
   }
 
   .project,
@@ -787,8 +787,8 @@ footer {
   }
 
   #home .profile-pic {
-    width: 200px;
-    height: 200px;
+    width: clamp(120px, 40vw, 200px);
+    height: clamp(120px, 40vw, 200px);
   }
 
   .project-img,
@@ -823,7 +823,7 @@ footer {
   }
 
   #home {
-    padding: 3rem 0.75rem;
+    padding: 3rem 0.5rem;
   }
 
   .home-text {
@@ -847,35 +847,35 @@ footer {
   }
 
   #home .profile-pic {
-    width: clamp(140px, 45vw, 200px);
-    height: clamp(140px, 45vw, 200px);
+    width: clamp(120px, 40vw, 200px);
+    height: clamp(120px, 40vw, 200px);
   }
 }
 
 @media (max-width: 360px) {
   .home-text h1 {
-    font-size: 1.6rem;
+    font-size: clamp(1.4rem, 4.5vw, 1.6rem);
   }
 
   .home-text h3 {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 4vw, 1.1rem);
   }
 
   .home-text p {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 3.5vw, 0.9rem);
   }
 
   .cta-btn,
   .cert-btn,
   .project-btn {
     padding: 0.5rem 1.25rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
   }
 
   #home .profile-pic,
   .about-content .about-pic {
-    width: 180px;
-    height: 180px;
+    width: clamp(100px, 40vw, 180px);
+    height: clamp(100px, 40vw, 180px);
   }
 
   .project-img,
@@ -921,12 +921,11 @@ footer {
   }
 
   #home .profile-pic {
-    width: clamp(120px, 40vw, 180px);
-    height: clamp(120px, 40vw, 180px);
+    width: clamp(100px, 40vw, 180px);
+    height: clamp(100px, 40vw, 180px);
   }
 }
 
-/* Animation Styles */
 .nav-link {
   opacity: 0;
   transform: translateY(-10px);
@@ -952,12 +951,14 @@ footer {
   }
 }
 
-@keyframes typewriter {
+@keyframes fadeInText {
   from {
-    width: 0;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
   }
   to {
-    width: 100%;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
   }
 }
 
